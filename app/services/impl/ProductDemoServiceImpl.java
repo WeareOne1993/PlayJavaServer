@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import dao.ProductDemoDAO;
 import models.ProductDemo;
 import services.ProductDemoService;
@@ -22,27 +24,17 @@ public class ProductDemoServiceImpl implements ProductDemoService
 
  
     @Transactional
-    public ProductDemo addProductDemo(ProductDemo p) {
+    public int addProductDemo(JsonNode p) {
         return this.productDemoDAO.addProductDemo(p);
     }
     
     @Transactional
-    public List<ProductDemo> listProductDemo()
-    {
-        return this.productDemoDAO.listProductDemo();
-    }
-    
-    @Transactional
-    public void initializeListProduct()
-    {
-        this.productDemoDAO.initializeListProduct();
-    }
-    
     public void getMaxDataSize()
     {
         this.productDemoDAO.getMaxDataSize();
     }
     
+    @Transactional
     public void getMaxWatchSize()
     {
         this.productDemoDAO.getMaxWatchSize();

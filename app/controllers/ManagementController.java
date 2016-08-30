@@ -5,8 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import models.ProductDemo;
+import models.ResponseStatus;
 import play.libs.Json;
+import play.mvc.Http.Request;
 import play.mvc.Result;
 import services.ProductDemoService;
 
@@ -16,19 +20,7 @@ public class ManagementController
     @Autowired
     private ProductDemoService productDemoService;
     
-    
-    /*
-     *return list all of products
-     *URL   : localhost:9000/products
-     *method: GET 
-     * */
-    public Result listProductDemo()
-    {
-        List<ProductDemo> listProductDemo = this.productDemoService.listProductDemo();
-        
-        return play.mvc.Controller.ok(Json.toJson(listProductDemo));
-    }
-    
+   
     
     /*
      * add new product to database
@@ -36,9 +28,23 @@ public class ManagementController
      * URL   : localhost:9000/product/add
      * method: POST
      * */
-    public Result addProductDemo(ProductDemo productDemo)
+    public Result addProductDemo()
     {
-        ProductDemo p = this.productDemoService.addProductDemo(productDemo);
-        return play.mvc.Controller.ok(Json.toJson(p));
+        JsonNode jsonProductDemo = play.mvc.Controller.request().body().asJson();
+        ResponseStatus reponseStatus;
+
+        if (jsonProductDemo == null)
+        {
+            return play.mvc.Controller.badRequest("Expecting a json body");
+        }
+        else
+        {
+            if (this.productDemoService.addProductDemo(jsonProductDemo) == 200)
+                reponseStatus = new ResponseStatus(200, "Ok, added!");
+            else
+                reponseStatus = new ResponseStatus(244, "fail to add new product");
+            
+            return play.mvc.Controller.ok(Json.toJson(reponseStatus)); 
+        }
     }
 }

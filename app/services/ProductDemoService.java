@@ -4,12 +4,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import models.ProductDemo;
 
 public interface ProductDemoService
 {
-    public ProductDemo addProductDemo(ProductDemo p);
-    public List<ProductDemo> listProductDemo();
+    public int addProductDemo(JsonNode p);
 //    public void updateProductDemo(ProductDemo p);
 //    public void removeProductDemo(Integer id);
 //    public List<ProductDemo> returnProductsForOnePage(int pageNumber, int pageSize);
@@ -23,8 +24,6 @@ public interface ProductDemoService
     public void getMaxDataSize();
     public void getMaxWatchSize();
     public void getMaxJewelrySize();
-//    
-    public void initializeListProduct();
 //    
 //    public String getCurrentTimeStamp();
 //    public void getInfoMemory();

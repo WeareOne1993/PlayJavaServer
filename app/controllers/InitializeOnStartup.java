@@ -17,7 +17,6 @@ public class InitializeOnStartup implements ApplicationListener<ContextRefreshed
     @Override
     public void onApplicationEvent(ContextRefreshedEvent arg0)
     {
-        this.productDemoService.initializeListProduct();
         this.productDemoService.getMaxDataSize();
         this.productDemoService.getMaxWatchSize();
         this.productDemoService.getMaxJewelrySize();

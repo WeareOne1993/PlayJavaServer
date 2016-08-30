@@ -4,15 +4,16 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import dao.impl.ProductDemoDAOImpl;
 import models.ProductDemo;
 
 @Repository
 public interface ProductDemoDAO 
 {
-    public ProductDemo addProductDemo(ProductDemo p);
+    public int addProductDemo(JsonNode p);
 //    public void updateProductDemo(ProductDemo p);
-    public List<ProductDemo> listProductDemo();
 //    public void removeProductDemo(Integer id);
 //    public List<ProductDemo> returnProductsForOnePage(int pageNumber, int pageSize);
 //    
@@ -33,7 +34,6 @@ public interface ProductDemoDAO
 //    public void setMaxDataSize(int maxDataSize);
 //    public void setMaxWatchSize(int maxWatchSize);
 //    public void setMaxJewelrySize(int maxJewelrySize);
-    public void initializeListProduct();
     
 //    public void setIsActiveCountData(int number);
 //    public void setIsActiveCountWatch(int number);
