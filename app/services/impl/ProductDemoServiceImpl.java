@@ -24,8 +24,51 @@ public class ProductDemoServiceImpl implements ProductDemoService
 
  
     @Transactional
-    public int addProductDemo(JsonNode p) {
+    public int addProductDemo(JsonNode p) 
+    {
         return this.productDemoDAO.addProductDemo(p);
+    }
+    
+    @Transactional
+    public int updateProductDemo(JsonNode p)
+    {
+        return this.productDemoDAO.updateProductDemo(p);
+    }
+    
+    @Transactional
+    public int removeProductDemo(int id)
+    {
+        return this.productDemoDAO.removeProductDemo(id);
+    }
+    
+    @Transactional
+    public List<ProductDemo> returnProductsForOnePage(int pageNumber, int pageSize)
+    {
+        return this.productDemoDAO.returnProductsForOnePage(pageNumber, pageSize);
+    }
+    
+    @Transactional
+    public List<ProductDemo> returnProductsWatchForOnePage(int pageNumber, int pageSize)
+    {
+        return this.productDemoDAO.returnProductsWatchForOnePage(pageNumber, pageSize);
+    }
+    
+    @Transactional
+    public List<ProductDemo> returnProductsJewelryForOnePage(int pageNumber, int pageSize)
+    {
+        return this.productDemoDAO.returnProductsJewelryForOnePage(pageNumber, pageSize);
+    }
+    
+    @Transactional
+    public List<ProductDemo> returnProductsForSearchNameForOnePage(int pageNumber, int pageSize, String name)
+    {
+        return this.productDemoDAO.returnProductsForSearchNameForOnePage(pageNumber, pageSize, name);
+    }
+    
+    @Transactional
+    public List<ProductDemo> returnAmountOfProduct(int number)
+    {
+        return this.productDemoDAO.returnAmountOfProduct(number);
     }
     
     @Transactional

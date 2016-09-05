@@ -13,16 +13,13 @@ import models.ProductDemo;
 public interface ProductDemoDAO 
 {
     public int addProductDemo(JsonNode p);
-//    public void updateProductDemo(ProductDemo p);
-//    public void removeProductDemo(Integer id);
-//    public List<ProductDemo> returnProductsForOnePage(int pageNumber, int pageSize);
-//    
-//    public List<ProductDemo> returnProductsForOnePagee(int pageNumber, int pageSize);
-//    
-//    public List<ProductDemo> returnProductsWatchForOnePage(int pageNumber, int pageSize);
-//    public List<ProductDemo> returnProductsJewelryForOnePage(int pageNumber, int pageSize);
-//    public List<ProductDemo> returnProductsForSearchNameForOnePage(int pageNumber, int pageSize, String name);
-//    public List<ProductDemo> returnAmountOfProduct(int number);
+    public int updateProductDemo(JsonNode p);
+    public int removeProductDemo(int id);
+    public List<ProductDemo> returnProductsForOnePage(int pageNumber, int pageSize);
+    public List<ProductDemo> returnProductsWatchForOnePage(int pageNumber, int pageSize);
+    public List<ProductDemo> returnProductsJewelryForOnePage(int pageNumber, int pageSize);
+    public List<ProductDemo> returnProductsForSearchNameForOnePage(int pageNumber, int pageSize, String name);
+    public List<ProductDemo> returnAmountOfProduct(int number);
     public void getMaxDataSize();
     public void getMaxWatchSize();
     public void getMaxJewelrySize();

@@ -3,11 +3,18 @@
 # ~~~~
 
 # Home page
-GET     /                           @controllers.Application.index
-GET     /bars                       @controllers.Application.listBars
-POST    /bars                       @controllers.Application.addBar
+GET     /									@controllers.Application.index
+GET     /bars								@controllers.Application.listBars
+POST    /bars								@controllers.Application.addBar
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
-POST	/product/add				@controllers.ManagementController.addProductDemo
+GET		/product/page/:pageNumber			@controllers.ManagementController.returnProductsForOnePage(pageNumber: Integer)
+GET		/product/watch/page/:pageNumber		@controllers.ManagementController.returnProductsWatchForOnePage(pageNumber: Integer)
+GET		/product/jewelry/page/:pageNumber	@controllers.ManagementController.returnProductsJewelryForOnePage(pageNumber: Integer)
+GET		/product/search						@controllers.ManagementController.returnProductsForSearchNameForOnePage(page: Integer, name: String)
+GET		/product/:number					@controllers.ManagementController.returnAmountOfProduct(number: Integer)
+POST	/product/add						@controllers.ManagementController.addProductDemo
+PUT		/product/update						@controllers.ManagementController.updateProductDemo
+DELETE	/product/remove/:id					@controllers.ManagementController.removeProductDemo(id: Integer)

@@ -1,5 +1,6 @@
 package dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import dao.ProductDemoDAO;
 import models.ProductDemo;
+import models.StorageSearch;
 import play.Logger;
 
 @Service
@@ -25,6 +27,8 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
     private static int maxWatchSize;
     private static int maxJewelrySize;
 
+    private static List<StorageSearch> countListForSearchName = new ArrayList<StorageSearch>();
+    
     @PersistenceContext
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -35,91 +39,37 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
     {
         Integer id = null;
         String name = p.findPath("name").asText();
-        Logger.debug("frist name = " + name);
-        
         String type = p.findPath("type").asText();
-        Logger.debug("frist type = " + type);
         String brand = p.findPath("brand").asText();
-        Logger.debug("frist brand = " + brand);
         String model = p.findPath("model").asText();
-        Logger.debug("frist model = " + model);
         String gender = p.findPath("gender").asText();
-        Logger.debug("frist gender = " + gender);
         String movement = p.findPath("movement").asText();
-        Logger.debug("frist movement = " + movement);
-        
         String watchLabel = p.findPath("watchLabel").asText();
-        Logger.debug("frist watchLabel = " + watchLabel);
-        
         double caseSize = p.findPath("caseSize").asDouble();
-        Logger.debug("frist caseSize = " + caseSize);
-        
         double caseThickness = p.findPath("caseThickness").asDouble();
-        Logger.debug("frist caseThickness = " + caseThickness);
-        
         String caseMaterial = p.findPath("caseMaterial").asText();
-        Logger.debug("frist caseMaterial = " + caseMaterial);
-        
         String caseShape = p.findPath("caseShape").asText();
-        Logger.debug("frist caseShape = " + caseShape);
-        
         String dialType = p.findPath("dialType").asText();
-        Logger.debug("frist dialType = " + dialType);
-        
         String dialColor = p.findPath("dialColor").asText();
-        Logger.debug("frist dialColor = " + dialColor);
-        
         String crystal = p.findPath("crystal").asText();
-        Logger.debug("frist crystal = " + crystal);
-        
         String waterResistance = p.findPath("waterResistance").asText();
-        Logger.debug("frist waterResistance = " + waterResistance);
-        
-        
+
         String metal = p.findPath("metal").asText();
-        Logger.debug("frist metal = " + metal);
-        
         String clasp = p.findPath("clasp").asText();
-        Logger.debug("frist clasp = " + clasp);
-        
         double chainLength = p.findPath("chainLength").asDouble();
-        Logger.debug("frist chainLength = " + chainLength);
-        
         String chainType = p.findPath("chainType").asText();
-        Logger.debug("frist chainType = " + chainType);
-        
         double width = p.findPath("width").asDouble();
-        Logger.debug("frist width = " + width);
-        
         double length = p.findPath("length").asDouble();
-        Logger.debug("frist length = " + length);
-        
         String rhodiumPlated = p.findPath("rhodiumPlated").asText();
-        Logger.debug("frist rhodiumPlated = " + rhodiumPlated);
-        
         int numberOfCenterRoundDiamonds = p.findPath("numberOfCenterRoundDiamonds").asInt();
-        Logger.debug("frist numberOfCenterRoundDiamonds = " + numberOfCenterRoundDiamonds);
-        
         double minimumCaratTotalWeight = p.findPath("minimumCaratTotalWeight").asDouble();
-        Logger.debug("frist minimumCaratTotalWeight = " + minimumCaratTotalWeight);
-        
         String minimumColor = p.findPath("minimumColor").asText();
-        Logger.debug("frist minimumColor = " + minimumColor);
-        
         String minimumClarity = p.findPath("minimumClarity").asText();
-        Logger.debug("frist minimumClarity = " + minimumClarity);
-        
         String minimumCut = p.findPath("minimumCut").asText();
-        Logger.debug("frist minimumCut = " + minimumCut);
-        
         String settingType = p.findPath("settingType").asText();
-        Logger.debug("frist settingType = " + settingType);
-        
+
         double price = p.findPath("price").asDouble();
-        Logger.debug("frist price = " + price);
-        
         String path = p.findPath("path").asText();
-        Logger.debug("frist path = " + path);
         
         if (name == "")
             name = null;
@@ -166,62 +116,419 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
         if (path == "")
             path = null;
 
-        
-        
-        Logger.debug("name = " + name + "  type = " + type + "  price = " + price);
-        
-        if (name == null)
+        if (type.equals("watch") && name != null && price != 0)
         {
-            name = null;
-        }
-        
-        
-        System.out.println("type = " + type);
-        
-        if (type.equals("watch"))
-        {
-            Logger.debug("equal watch ne");
-        }
-        
-        if (type == "watch")
-        {
-            Logger.debug("== watch luon");
-        }
-        
-        if (!name.equals(null))
-        {
-            Logger.debug("# null ne");
-        }
-        if (price != 0)
-        {
-            Logger.debug(" # 0 ne");
-        }
-        
-        if (type.equals("watch") && !name.equals(null) && price != 0)
-        {
-            Logger.debug("watch ne");
             ProductDemo productDemo = new ProductDemo(name, type, brand, model, gender, movement, watchLabel, caseSize, caseThickness, caseMaterial, caseShape, dialType, dialColor, crystal, waterResistance, metal, clasp, chainLength, chainType, width, length, rhodiumPlated, numberOfCenterRoundDiamonds, minimumCaratTotalWeight, minimumColor, minimumClarity, minimumCut, settingType, price, path);
             entityManager.persist(productDemo);
             maxDataSize = maxDataSize + 1;
             maxWatchSize = maxWatchSize + 1;
-            Logger.debug("xong cai dong ho");
         }
-        else if (type.equals("jewelry") && !name.equals(null) && price != 0)
+        else if (type.equals("jewelry") && name != null && price != 0)
         {
-            
-            Logger.debug("trang cmn suc");
             ProductDemo productDemo = new ProductDemo(name, type, brand, model, gender, movement, watchLabel, caseSize, caseThickness, caseMaterial, caseShape, dialType, dialColor, crystal, waterResistance, metal, clasp, chainLength, chainType, width, length, rhodiumPlated, numberOfCenterRoundDiamonds, minimumCaratTotalWeight, minimumColor, minimumClarity, minimumCut, settingType, price, path);
             entityManager.persist(productDemo);
             maxDataSize = maxDataSize + 1;
             maxJewelrySize = maxJewelrySize + 1;
-            Logger.debug("oay xugn luon");
         }
         else
             return 244;
         
+        reCountListAfterAddOrUpdate(name);
+        
         return 200;
     }
 
+    public int updateProductDemo(JsonNode p)
+    {
+        int id = p.findPath("id").asInt();
+        
+        ProductDemo findProduct = entityManager.find(ProductDemo.class, id);
+        
+        String oldName = findProduct.getName();
+        String oldType = findProduct.getType();
+        
+        String name = p.findPath("name").asText();
+        String type = p.findPath("type").asText();
+        
+        String brand = p.findPath("brand").asText();
+        String model = p.findPath("model").asText();
+        String gender = p.findPath("gender").asText();
+        String movement = p.findPath("movement").asText();
+        String watchLabel = p.findPath("watchLabel").asText();
+        double caseSize = p.findPath("caseSize").asDouble();
+        double caseThickness = p.findPath("caseThickness").asDouble();
+        String caseMaterial = p.findPath("caseMaterial").asText();
+        String caseShape = p.findPath("caseShape").asText();
+        String dialType = p.findPath("dialType").asText();
+        String dialColor = p.findPath("dialColor").asText();
+        String crystal = p.findPath("crystal").asText();
+        String waterResistance = p.findPath("waterResistance").asText();
+
+        String metal = p.findPath("metal").asText();
+        String clasp = p.findPath("clasp").asText();
+        double chainLength = p.findPath("chainLength").asDouble();
+        String chainType = p.findPath("chainType").asText();
+        double width = p.findPath("width").asDouble();
+        double length = p.findPath("length").asDouble();
+        String rhodiumPlated = p.findPath("rhodiumPlated").asText();
+        int numberOfCenterRoundDiamonds = p.findPath("numberOfCenterRoundDiamonds").asInt();
+        double minimumCaratTotalWeight = p.findPath("minimumCaratTotalWeight").asDouble();
+        String minimumColor = p.findPath("minimumColor").asText();
+        String minimumClarity = p.findPath("minimumClarity").asText();
+        String minimumCut = p.findPath("minimumCut").asText();
+        String settingType = p.findPath("settingType").asText();
+
+        double price = p.findPath("price").asDouble();
+        String path = p.findPath("path").asText();
+        
+        if (name == "")
+            name = null;
+        if (type == "")
+            type = null;
+        if (brand == "")
+            brand = null;
+        if (model == "")
+            model = null;
+        if (gender == "")
+            gender = null;
+        if (movement == "")
+            movement = null;
+        if (watchLabel == "")
+            watchLabel = null;
+        if (caseMaterial == "")
+            caseMaterial = null;
+        if (caseShape == "")
+            caseShape = null;
+        if (dialType == "")
+            dialType = null;
+        if (dialColor == "")
+            dialColor = null;
+        if (crystal == "")
+            crystal = null;
+        if (waterResistance == "")
+            waterResistance = null;
+        if (metal == "")
+            metal = null;
+        if (clasp == "")
+            clasp = null;
+        if (chainType == "")
+            chainType = null;
+        if (rhodiumPlated == "")
+            rhodiumPlated = null;
+        if (minimumColor == "")
+            minimumColor = null;
+        if (minimumClarity == "")
+            minimumClarity = null;
+        if (minimumCut == "")
+            minimumCut = null;
+        if (settingType == "")
+            settingType = null;
+        if (path == "")
+            path = null;
+
+        findProduct.setName(name);
+        findProduct.setType(type);
+        findProduct.setBrand(brand);
+        findProduct.setModel(model);
+        findProduct.setGender(gender);
+        findProduct.setMovement(movement);
+        findProduct.setWatchLabel(watchLabel);
+        findProduct.setCaseSize(caseSize);
+        findProduct.setCaseThickness(caseThickness);
+        findProduct.setCaseMaterial(caseMaterial);
+        findProduct.setCaseShape(caseShape);
+        findProduct.setDialType(dialType);
+        findProduct.setDialColor(dialColor);
+        findProduct.setCrystal(crystal);
+        findProduct.setWaterResistance(waterResistance);
+        findProduct.setMetal(metal);
+        findProduct.setClasp(clasp);
+        findProduct.setChainLength(chainLength);
+        findProduct.setChainType(chainType);
+        findProduct.setWidth(width);
+        findProduct.setLength(length);
+        findProduct.setRhodiumPlated(rhodiumPlated);
+        findProduct.setNumberOfCenterRoundDiamonds(numberOfCenterRoundDiamonds);
+        findProduct.setMinimumCaratTotalWeight(minimumCaratTotalWeight);
+        findProduct.setMinimumColor(minimumColor);
+        findProduct.setMinimumClarity(minimumClarity);
+        findProduct.setMinimumCut(minimumCut);
+        findProduct.setSettingType(settingType);
+        findProduct.setPrice(price);
+        findProduct.setPath(path);
+        
+        if (type.equals("watch") && name != null && price != 0)
+        {
+            entityManager.merge(findProduct);
+            
+            if (oldType.equals("jewelry"))
+            {
+                maxWatchSize = maxWatchSize - 1;
+                maxJewelrySize = maxJewelrySize + 1;
+            }
+        }
+        else if (type.equals("jewelry") && name != null && price != 0)
+        {
+            entityManager.merge(findProduct);
+            
+            if (oldType.equals("watch"))
+            {
+                maxWatchSize = maxWatchSize + 1;
+                maxJewelrySize = maxJewelrySize - 1;
+            }
+        }
+        else
+            return 245;
+        
+        reCountListAfterRemove(oldName);
+        reCountListAfterAddOrUpdate(name);
+        
+        return 200;
+    }
+    
+    public int removeProductDemo(int id)
+    {
+        ProductDemo findProduct = entityManager.find(ProductDemo.class, id);
+        String name = findProduct.getName();
+        
+        if (findProduct == null)
+        {
+            return 246;
+        }
+        else
+        {
+            String type = findProduct.getType();
+            
+            entityManager.remove(findProduct);
+            
+            if (type.equals("watch"))
+            {
+                Logger.debug("= cai dogn ho");
+                maxWatchSize = maxWatchSize - 1;
+                maxDataSize = maxDataSize -1;
+            }
+            else if (type.equals("jewelry"))
+            {
+                Logger.debug("= trang cmn suc");
+                maxJewelrySize = maxJewelrySize - 1;
+                maxDataSize = maxDataSize -1;
+            }
+            
+            reCountListAfterRemove(name);
+            
+            return 200;           
+        }
+    }
+    
+    public List<ProductDemo> returnProductsForOnePage(int pageNumber, int pageSize)
+    {
+        int maxPageSize;
+        
+        List<ProductDemo> products;
+        
+        if (maxDataSize == 0)
+        {
+            products = new ArrayList<ProductDemo>();
+            products.add(new ProductDemo(0, 0));
+            
+            return products;
+        }
+        else
+        {
+            if (maxDataSize%pageSize == 0)
+                maxPageSize = (int) maxDataSize/pageSize;
+            else
+                maxPageSize = (int) maxDataSize/pageSize + 1;
+            
+            if (pageNumber > maxPageSize || pageNumber <= 0)
+            {
+                products = new ArrayList<ProductDemo>();
+                products.add(new ProductDemo(maxPageSize, maxDataSize));
+                
+                return products;
+            }
+            else
+            {
+                CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+                CriteriaQuery<ProductDemo> criteriaQuery = criteriaBuilder.createQuery(ProductDemo.class);
+                Root<ProductDemo> rootProductDemo = criteriaQuery.from(ProductDemo.class);
+                products = entityManager.createQuery(criteriaQuery).setFirstResult((pageNumber-1)*pageSize).setMaxResults(pageSize).getResultList();
+                products.add(new ProductDemo(maxPageSize, maxDataSize));
+                
+                return products; 
+            }           
+        }
+    }
+    
+    public List<ProductDemo> returnProductsWatchForOnePage(int pageNumber, int pageSize)
+    {
+        int maxPageSize;
+        
+        List<ProductDemo> products;
+        
+        if (maxWatchSize == 0)
+        {
+            products = new ArrayList<ProductDemo>();
+            products.add(new ProductDemo(0, 0));
+            
+            return products;
+        }
+        else
+        {
+            if (maxWatchSize%pageSize == 0)
+                maxPageSize = (int) maxWatchSize/pageSize;
+            else
+                maxPageSize = (int) maxWatchSize/pageSize + 1;
+            
+            if (pageNumber > maxPageSize || pageNumber <= 0)
+            {
+                products = new ArrayList<ProductDemo>();
+                products.add(new ProductDemo(maxPageSize, maxWatchSize));
+                
+                return products;
+            }
+            else
+            {
+                CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+                CriteriaQuery<ProductDemo> criteriaQuery = criteriaBuilder.createQuery(ProductDemo.class);
+                Root<ProductDemo> rootProductDemo = criteriaQuery.from(ProductDemo.class);
+                criteriaQuery.where(criteriaBuilder.equal(rootProductDemo.get("type"), "watch"));
+                products = entityManager.createQuery(criteriaQuery).setFirstResult((pageNumber-1)*pageSize).setMaxResults(pageSize).getResultList();
+                products.add(new ProductDemo(maxPageSize, maxWatchSize));
+                
+                return products; 
+            }           
+        }
+    }
+    
+    public List<ProductDemo> returnProductsJewelryForOnePage(int pageNumber, int pageSize)
+    {
+        int maxPageSize;
+        
+        List<ProductDemo> products;
+        
+        if (maxJewelrySize == 0)
+        {
+            products = new ArrayList<ProductDemo>();
+            products.add(new ProductDemo(0, 0));
+            
+            return products;
+        }
+        else
+        {
+            if (maxJewelrySize%pageSize == 0)
+                maxPageSize = (int) maxJewelrySize/pageSize;
+            else
+                maxPageSize = (int) maxJewelrySize/pageSize + 1;
+            
+            if (pageNumber > maxPageSize || pageNumber <= 0)
+            {
+                products = new ArrayList<ProductDemo>();
+                products.add(new ProductDemo(maxPageSize, maxJewelrySize));
+                
+                return products;
+            }
+            else
+            {
+                CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+                CriteriaQuery<ProductDemo> criteriaQuery = criteriaBuilder.createQuery(ProductDemo.class);
+                Root<ProductDemo> rootProductDemo = criteriaQuery.from(ProductDemo.class);
+                criteriaQuery.where(criteriaBuilder.equal(rootProductDemo.get("type"), "jewelry"));
+                products = entityManager.createQuery(criteriaQuery).setFirstResult((pageNumber-1)*pageSize).setMaxResults(pageSize).getResultList();
+                products.add(new ProductDemo(maxPageSize, maxJewelrySize));
+                
+                return products; 
+            }           
+        }
+    }
+    
+    public List<ProductDemo> returnProductsForSearchNameForOnePage(int pageNumber, int pageSize, String name)
+    {
+        int countSize = 0;
+        int maxPageSize;
+        List<ProductDemo> products;
+        boolean isFound = false;
+        printCountList();
+        
+        if (countListForSearchName.size() == 0)
+        {
+            countSize = countDataWithCorrespondingName(name);
+            countListForSearchName.add(new StorageSearch(name, countSize));
+            isFound = true;
+        }
+        else
+        {
+            int index = 0;
+            int maxSize = countListForSearchName.size();
+            boolean isContinue = true;
+            
+            while (index < maxSize && isContinue == true)
+            {
+                if (countListForSearchName.get(index).getName().equals(name))
+                {
+                    isContinue = false;
+                    countSize = countListForSearchName.get(index).getNumber();
+                    isFound = true;
+                }
+                
+                index = index + 1;
+            }
+        }
+        
+        if (isFound == false)
+        {
+            countSize = countDataWithCorrespondingName(name);
+            countListForSearchName.add(new StorageSearch(name, countSize));
+            isFound = true;
+        }
+
+        if (countSize == 0)
+        {
+            products = new ArrayList<ProductDemo>();
+            products.add(new ProductDemo(0, 0));
+            
+            return products;
+        }
+        else
+        {
+            if (countSize%pageSize == 0)
+                maxPageSize = (int) countSize/pageSize;
+            else
+                maxPageSize = (int) countSize/pageSize + 1;
+            
+            if (pageNumber > maxPageSize || pageNumber <= 0)
+            {
+                products = new ArrayList<ProductDemo>();
+                products.add(new ProductDemo(maxPageSize, countSize));
+                
+                return products;
+            }
+            else
+            {
+                CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+                CriteriaQuery<ProductDemo> criteriaQueryProductDemo = criteriaBuilder.createQuery(ProductDemo.class);
+                Root<ProductDemo> rootProductDemo = criteriaQueryProductDemo.from(ProductDemo.class);
+                criteriaQueryProductDemo.where(criteriaBuilder.like(rootProductDemo.get("name"), "%" + name + "%"));
+                
+                products = entityManager.createQuery(criteriaQueryProductDemo).setFirstResult((pageNumber-1)*pageSize).setMaxResults(pageSize).getResultList();
+                products.add(new ProductDemo(maxPageSize, countSize));
+                
+                return products;  
+            }
+        }
+    }
+    
+    public List<ProductDemo> returnAmountOfProduct(int number)
+    {
+        List<ProductDemo> products;
+        
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ProductDemo> criteriaQuery = criteriaBuilder.createQuery(ProductDemo.class);
+        Root<ProductDemo> rootProductDemo = criteriaQuery.from(ProductDemo.class);
+        products = entityManager.createQuery(criteriaQuery).setFirstResult(0).setMaxResults(number).getResultList();
+        
+        return products; 
+    }
     
     public void getMaxDataSize()
     {
@@ -255,4 +562,53 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
         Logger.debug("max jewelry size = " + maxJewelrySize);
     }
 
+    public int countDataWithCorrespondingName(String name)
+    {
+        int countSize;
+        
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+        Root<ProductDemo> rootProductDemo = criteriaQuery.from(ProductDemo.class);
+        criteriaQuery.select(criteriaBuilder.count(rootProductDemo));
+        criteriaQuery.where(criteriaBuilder.like(rootProductDemo.get("name"), "%" + name + "%"));
+        
+        countSize = entityManager.createQuery(criteriaQuery).getSingleResult().intValue();
+        Logger.debug("max count Size = " + countSize); 
+        
+        return countSize;
+    }
+
+    public void printCountList()
+    {
+        Logger.debug("count List Size = " + countListForSearchName.size());
+        
+        for (int i = 0; i < countListForSearchName.size(); i++)
+        {
+            Logger.debug("name = " + countListForSearchName.get(i).getName() + "\tsize = " + countListForSearchName.get(i).getNumber());
+        }
+        
+        System.out.println("\n");
+    }
+    
+    public void reCountListAfterAddOrUpdate(String name)
+    {
+        for (int i = 0; i < countListForSearchName.size(); i ++)
+        {
+            if (name.toLowerCase().contains(countListForSearchName.get(i).getName().toLowerCase()) == true)
+            {
+                countListForSearchName.get(i).setNumber(countListForSearchName.get(i).getNumber()+1);
+            }
+        }
+    }
+
+    public void reCountListAfterRemove(String name)
+    {
+        for (int i = 0; i < countListForSearchName.size(); i ++)
+        {
+            if (name.toLowerCase().contains(countListForSearchName.get(i).getName().toLowerCase()) == true)
+            {
+                countListForSearchName.get(i).setNumber(countListForSearchName.get(i).getNumber()-1);
+            }
+        }       
+    }
 }
