@@ -14,9 +14,6 @@ public interface ProductDemoService
     public int updateProductDemo(JsonNode p);
     public int removeProductDemo(int id);
     public List<ProductDemo> returnProductsForOnePage(int pageNumber, int pageSize);
-//    
-//    public List<ProductDemo> returnProductsForOnePagee(int pageNumber, int pageSize);
-//    
     public List<ProductDemo> returnProductsWatchForOnePage(int pageNumber, int pageSize);
     public List<ProductDemo> returnProductsJewelryForOnePage(int pageNumber, int pageSize);
     public List<ProductDemo> returnProductsForSearchNameForOnePage(int pageNumber, int pageSize, String name);
@@ -24,7 +21,4 @@ public interface ProductDemoService
     public void getMaxDataSize();
     public void getMaxWatchSize();
     public void getMaxJewelrySize();
-//    
-//    public String getCurrentTimeStamp();
-//    public void getInfoMemory();
 }

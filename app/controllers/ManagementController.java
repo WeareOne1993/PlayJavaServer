@@ -33,7 +33,7 @@ public class ManagementController
     public Result addProductDemo()
     {
         JsonNode jsonProductDemo = play.mvc.Controller.request().body().asJson();
-        ResponseStatus reponseStatus;
+        ResponseStatus responseStatus;
 
         if (jsonProductDemo == null)
         {
@@ -42,11 +42,11 @@ public class ManagementController
         else
         {
             if (this.productDemoService.addProductDemo(jsonProductDemo) == 200)
-                reponseStatus = new ResponseStatus(200, "Ok, added!");
+                responseStatus = new ResponseStatus(200, "Ok, added!");
             else
-                reponseStatus = new ResponseStatus(244, "fail to add new product");
+                responseStatus = new ResponseStatus(244, "fail to add new product");
             
-            return play.mvc.Controller.ok(Json.toJson(reponseStatus)); 
+            return play.mvc.Controller.ok(Json.toJson(responseStatus)); 
         }
     }
     
@@ -61,7 +61,7 @@ public class ManagementController
     public Result updateProductDemo()
     {
         JsonNode jsonProductDemo = play.mvc.Controller.request().body().asJson();
-        ResponseStatus reponseStatus;
+        ResponseStatus responseStatus;
 
         if (jsonProductDemo == null)
         {
@@ -70,11 +70,11 @@ public class ManagementController
         else
         {
             if (this.productDemoService.updateProductDemo(jsonProductDemo) == 200)
-                reponseStatus = new ResponseStatus(200, "Ok, updated!");
+                responseStatus = new ResponseStatus(200, "Ok, updated!");
             else
-                reponseStatus = new ResponseStatus(245, "fail to update product");
+                responseStatus = new ResponseStatus(245, "fail to update product");
             
-            return play.mvc.Controller.ok(Json.toJson(reponseStatus)); 
+            return play.mvc.Controller.ok(Json.toJson(responseStatus)); 
         }
     }
     
@@ -88,14 +88,14 @@ public class ManagementController
      * */
     public Result removeProductDemo(int id)
     {
-        ResponseStatus reponseStatus;
+        ResponseStatus responseStatus;
 
         if (this.productDemoService.removeProductDemo(id) == 200)
-            reponseStatus = new ResponseStatus(200, "Ok, removed!");
+            responseStatus = new ResponseStatus(200, "Ok, removed!");
         else
-            reponseStatus = new ResponseStatus(246, "fail to remove product");
+            responseStatus = new ResponseStatus(246, "fail to remove product");
         
-        return play.mvc.Controller.ok(Json.toJson(reponseStatus)); 
+        return play.mvc.Controller.ok(Json.toJson(responseStatus)); 
     }
     
     
@@ -108,8 +108,6 @@ public class ManagementController
      * */
     public Result returnProductsForOnePage(Integer pageNumber)
     {
-        ResponseStatus reponseStatus;
-
         List<ProductDemo> products = this.productDemoService.returnProductsForOnePage(pageNumber, pageSize);
         
         return play.mvc.Controller.ok(Json.toJson(products)); 
@@ -125,8 +123,6 @@ public class ManagementController
      * */
     public Result returnProductsWatchForOnePage(Integer pageNumber)
     {
-        ResponseStatus reponseStatus;
-
         List<ProductDemo> products = this.productDemoService.returnProductsWatchForOnePage(pageNumber, pageSize);
         
         return play.mvc.Controller.ok(Json.toJson(products)); 
@@ -137,12 +133,11 @@ public class ManagementController
     /*
      * return list of jewelry corresponding with page number called
      * return: list jewelry 
-     * URL   : localhost:9000/product/watch/page/{pageNumber}
+     * URL   : localhost:9000/product/jewelery/page/{pageNumber}
      * method: GET
      * */
     public Result returnProductsJewelryForOnePage(Integer pageNumber)
     {
-        ResponseStatus reponseStatus;
 
         List<ProductDemo> products = this.productDemoService.returnProductsJewelryForOnePage(pageNumber, pageSize);
         
@@ -154,13 +149,11 @@ public class ManagementController
     /*
      * return list of products corresponding with page number and name called
      * return: list products 
-     * URL   : localhost:9000/product/page=pageNumber&name=name
+     * URL   : localhost:9000/products/page=pageNumber&name=name
      * method: GET
      * */
     public Result returnProductsForSearchNameForOnePage(Integer pageNumber, String name)
     {
-        ResponseStatus reponseStatus;
-
         List<ProductDemo> products = this.productDemoService.returnProductsForSearchNameForOnePage(pageNumber, pageSize, name);
         
         return play.mvc.Controller.ok(Json.toJson(products)); 

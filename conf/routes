@@ -14,7 +14,7 @@ GET		/product/page/:pageNumber			@controllers.ManagementController.returnProduct
 GET		/product/watch/page/:pageNumber		@controllers.ManagementController.returnProductsWatchForOnePage(pageNumber: Integer)
 GET		/product/jewelry/page/:pageNumber	@controllers.ManagementController.returnProductsJewelryForOnePage(pageNumber: Integer)
 GET		/product/search						@controllers.ManagementController.returnProductsForSearchNameForOnePage(page: Integer, name: String)
-GET		/product/:number					@controllers.ManagementController.returnAmountOfProduct(number: Integer)
+GET		/products/:number					@controllers.ManagementController.returnAmountOfProduct(number: Integer)
 POST	/product/add						@controllers.ManagementController.addProductDemo
 PUT		/product/update						@controllers.ManagementController.updateProductDemo
 DELETE	/product/remove/:id					@controllers.ManagementController.removeProductDemo(id: Integer)

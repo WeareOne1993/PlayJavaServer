@@ -290,26 +290,23 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
     {
         ProductDemo findProduct = entityManager.find(ProductDemo.class, id);
         String name = findProduct.getName();
-        
+        String type = findProduct.getType();   
+
         if (findProduct == null)
         {
             return 246;
         }
         else
-        {
-            String type = findProduct.getType();
-            
+        {            
             entityManager.remove(findProduct);
             
             if (type.equals("watch"))
             {
-                Logger.debug("= cai dogn ho");
                 maxWatchSize = maxWatchSize - 1;
                 maxDataSize = maxDataSize -1;
             }
             else if (type.equals("jewelry"))
             {
-                Logger.debug("= trang cmn suc");
                 maxJewelrySize = maxJewelrySize - 1;
                 maxDataSize = maxDataSize -1;
             }
@@ -522,21 +519,28 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
     {
         List<ProductDemo> products;
         
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<ProductDemo> criteriaQuery = criteriaBuilder.createQuery(ProductDemo.class);
-        Root<ProductDemo> rootProductDemo = criteriaQuery.from(ProductDemo.class);
-        products = entityManager.createQuery(criteriaQuery).setFirstResult(0).setMaxResults(number).getResultList();
+        if (number <= 0)
+        {
+            products = new ArrayList<ProductDemo>();
+            products.add(new ProductDemo(0, 0));
+        }
+        else
+        {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<ProductDemo> criteriaQuery = criteriaBuilder.createQuery(ProductDemo.class);
+            Root<ProductDemo> rootProductDemo = criteriaQuery.from(ProductDemo.class);
+            products = entityManager.createQuery(criteriaQuery).setFirstResult(0).setMaxResults(number).getResultList();
+        }
+        
         
         return products; 
     }
     
     public void getMaxDataSize()
     {
-        //CriteriaQuery<ProductDemo> criteriaQuery = entityManager.getCriteriaBuilder().createQuery(Long.class);
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
         Root<ProductDemo> rootProductDemo = criteriaQuery.from(ProductDemo.class);
-//        criteriaQuery.select(criteriaBuilder.count(criteriaQuery.from(ProductDemo.class)));
         criteriaQuery.select(criteriaBuilder.count(rootProductDemo));
         
         maxDataSize = entityManager.createQuery(criteriaQuery).getSingleResult().intValue();
