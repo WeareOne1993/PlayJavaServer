@@ -10,12 +10,15 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import play.Logger;
 import play.Play;
 
+import java.beans.PropertyVetoException;
 import java.util.HashMap;
 
 @Configuration
@@ -25,7 +28,7 @@ public class DataConfig {
     @Bean
     public EntityManagerFactory entityManagerFactory() {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setShowSql(true);
+        vendorAdapter.setShowSql(false);
         vendorAdapter.setGenerateDdl(true);
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactory.setPackagesToScan("models");
@@ -47,12 +50,31 @@ public class DataConfig {
 
     @Bean
     public DataSource dataSource() {
-        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(Play.application().configuration().getString("db.default.driver"));
-        dataSource.setUrl(Play.application().configuration().getString("db.default.url"));
-        dataSource.setUsername(Play.application().configuration().getString("db.default.username"));
-        dataSource.setPassword(Play.application().configuration().getString("db.default.password"));
+//        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//        dataSource.setDriverClassName(Play.application().configuration().getString("db.default.driver"));
+//        dataSource.setUrl(Play.application().configuration().getString("db.default.url"));
+//        dataSource.setUsername(Play.application().configuration().getString("db.default.username"));
+//        dataSource.setPassword(Play.application().configuration().getString("db.default.password"));
                 
+        
+        final ComboPooledDataSource dataSource = new ComboPooledDataSource();
+        try {
+            dataSource.setDriverClass(Play.application().configuration().getString("db.default.driver"));
+        } catch (PropertyVetoException e) {
+            // TODO Auto-generated catch block
+            System.out.println("*****************************************\n****************************************\n*****************************");
+            e.printStackTrace();
+        }
+        dataSource.setJdbcUrl(Play.application().configuration().getString("db.default.url"));
+        dataSource.setUser(Play.application().configuration().getString("db.default.username"));
+        dataSource.setPassword(Play.application().configuration().getString("db.default.password"));
+//        dataSource.setMinPoolSize(1);
+//        dataSource.setMinPoolSize(Play.application().configuration().getInt("db.default.minPoolSize"));
+//        dataSource.setMaxPoolSize(Play.application().configuration().getInt("db.default.maxPoolSize"));
+//        dataSource.setMaxIdleTime(Play.application().configuration().getInt("db.default.maxIdleTime"));
+//        dataSource.setNumHelperThreads(Play.application().configuration().getInt("db.default.numHelperThreads"));
+        
+        
         return dataSource;
     }
 

@@ -144,6 +144,11 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
         
         ProductDemo findProduct = entityManager.find(ProductDemo.class, id);
         
+        if (findProduct == null)
+        {
+            return 245;
+        }
+        
         String oldName = findProduct.getName();
         String oldType = findProduct.getType();
         
@@ -289,15 +294,17 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
     public int removeProductDemo(int id)
     {
         ProductDemo findProduct = entityManager.find(ProductDemo.class, id);
-        String name = findProduct.getName();
-        String type = findProduct.getType();   
+  
 
         if (findProduct == null)
         {
             return 246;
         }
         else
-        {            
+        {         
+            String name = findProduct.getName();
+            String type = findProduct.getType(); 
+            
             entityManager.remove(findProduct);
             
             if (type.equals("watch"))
