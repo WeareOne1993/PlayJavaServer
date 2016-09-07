@@ -21,4 +21,6 @@ public interface ProductDemoService
     public void getMaxDataSize();
     public void getMaxWatchSize();
     public void getMaxJewelrySize();
+    
+    public int checkTransactionisActive();
 }

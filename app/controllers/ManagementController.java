@@ -173,4 +173,23 @@ public class ManagementController
         
         return play.mvc.Controller.ok(Json.toJson(products)); 
     }
+    
+    
+    
+    /*
+     * just check exist transaction if we dont call a transaction
+     * return: int 300
+     * URL   : localhost:9000/product/check
+     * method: GET
+     * */
+    public Result checkTransactionisActive()
+    {
+       int result = this.productDemoService.checkTransactionisActive();
+        
+        return play.mvc.Controller.ok(Json.toJson(result)); 
+    }
+    
+    
+    
+    
 }

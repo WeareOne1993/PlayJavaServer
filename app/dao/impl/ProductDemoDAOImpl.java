@@ -9,7 +9,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -18,7 +20,7 @@ import models.ProductDemo;
 import models.StorageSearch;
 import play.Logger;
 
-@Service
+@Repository
 public class ProductDemoDAOImpl implements ProductDemoDAO
 {
     private EntityManager entityManager;
@@ -120,6 +122,7 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
         {
             ProductDemo productDemo = new ProductDemo(name, type, brand, model, gender, movement, watchLabel, caseSize, caseThickness, caseMaterial, caseShape, dialType, dialColor, crystal, waterResistance, metal, clasp, chainLength, chainType, width, length, rhodiumPlated, numberOfCenterRoundDiamonds, minimumCaratTotalWeight, minimumColor, minimumClarity, minimumCut, settingType, price, path);
             entityManager.persist(productDemo);
+            
             maxDataSize = maxDataSize + 1;
             maxWatchSize = maxWatchSize + 1;
         }
@@ -264,7 +267,7 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
         
         if (type.equals("watch") && name != null && price != 0)
         {
-            entityManager.merge(findProduct);
+//            entityManager.merge(findProduct);
             
             if (oldType.equals("jewelry"))
             {
@@ -274,7 +277,7 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
         }
         else if (type.equals("jewelry") && name != null && price != 0)
         {
-            entityManager.merge(findProduct);
+//            entityManager.merge(findProduct);
             
             if (oldType.equals("watch"))
             {
@@ -328,6 +331,11 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
     {
         int maxPageSize;
         
+        if (TransactionSynchronizationManager.isActualTransactionActive() == true)
+        {
+            Logger.debug("return ProductForOnePage: there have a Transaction");
+        }        
+        
         List<ProductDemo> products;
         
         if (maxDataSize == 0)
@@ -358,6 +366,8 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
                 Root<ProductDemo> rootProductDemo = criteriaQuery.from(ProductDemo.class);
                 products = entityManager.createQuery(criteriaQuery).setFirstResult((pageNumber-1)*pageSize).setMaxResults(pageSize).getResultList();
                 products.add(new ProductDemo(maxPageSize, maxDataSize));
+                
+//                entityManager.close();
                 
                 return products; 
             }           
@@ -552,10 +562,15 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
         
         maxDataSize = entityManager.createQuery(criteriaQuery).getSingleResult().intValue();
         Logger.debug("max data size = " + maxDataSize);
+
     }
     
     public void getMaxWatchSize()
     {
+        if (TransactionSynchronizationManager.isActualTransactionActive() == true)
+        {
+            Logger.debug("get max WATCH size : there have a Transaction");
+        }
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
         Root<ProductDemo> rootProductDemo = criteriaQuery.from(ProductDemo.class);
@@ -569,6 +584,10 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
     
     public void getMaxJewelrySize()
     {
+        if (TransactionSynchronizationManager.isActualTransactionActive() == true)
+        {
+            Logger.debug("get max jewelry size : there have a Transaction");
+        }
         maxJewelrySize = maxDataSize - maxWatchSize;
         Logger.debug("max jewelry size = " + maxJewelrySize);
     }
@@ -621,5 +640,14 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
                 countListForSearchName.get(i).setNumber(countListForSearchName.get(i).getNumber()-1);
             }
         }       
+    }
+    
+    public int checkTransactionisActive()
+    {
+        if (TransactionSynchronizationManager.isActualTransactionActive() == true)
+        {
+            Logger.debug("checkTransaction is active?? : there have a Transaction");
+        }
+        return 300;
     }
 }

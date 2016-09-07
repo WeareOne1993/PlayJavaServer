@@ -18,3 +18,5 @@ GET		/products/:number					@controllers.ManagementController.returnAmountOfProdu
 POST	/product/add						@controllers.ManagementController.addProductDemo
 PUT		/product/update						@controllers.ManagementController.updateProductDemo
 DELETE	/product/remove/:id					@controllers.ManagementController.removeProductDemo(id: Integer)
+
+GET		/product/check						@controllers.ManagementController.checkTransactionisActive

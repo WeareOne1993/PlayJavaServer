@@ -13,9 +13,6 @@ import play.Logger;
 public class Global extends GlobalSettings {
 
     private ApplicationContext ctx;
-    
-    @Autowired
-    private ProductDemoDAO productDemoDAO;
 
     @Override
     public void onStart(Application app)

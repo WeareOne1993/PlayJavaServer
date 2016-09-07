@@ -87,4 +87,10 @@ public class ProductDemoServiceImpl implements ProductDemoService
     {
         this.productDemoDAO.getMaxJewelrySize();
     }
+    
+    @Transactional
+    public int checkTransactionisActive()
+    {
+        return this.productDemoDAO.checkTransactionisActive();
+    }
 }

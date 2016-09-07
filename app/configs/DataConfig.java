@@ -61,17 +61,16 @@ public class DataConfig {
         try {
             dataSource.setDriverClass(Play.application().configuration().getString("db.default.driver"));
         } catch (PropertyVetoException e) {
-            // TODO Auto-generated catch block
             System.out.println("*****************************************\n****************************************\n*****************************");
             e.printStackTrace();
         }
         dataSource.setJdbcUrl(Play.application().configuration().getString("db.default.url"));
         dataSource.setUser(Play.application().configuration().getString("db.default.username"));
         dataSource.setPassword(Play.application().configuration().getString("db.default.password"));
-//        dataSource.setMinPoolSize(1);
-//        dataSource.setMinPoolSize(Play.application().configuration().getInt("db.default.minPoolSize"));
-//        dataSource.setMaxPoolSize(Play.application().configuration().getInt("db.default.maxPoolSize"));
-//        dataSource.setMaxIdleTime(Play.application().configuration().getInt("db.default.maxIdleTime"));
+        
+        dataSource.setMinPoolSize(Play.application().configuration().getInt("db.default.minPoolSize"));
+        dataSource.setMaxPoolSize(Play.application().configuration().getInt("db.default.maxPoolSize"));
+        dataSource.setMaxIdleTime(Play.application().configuration().getInt("db.default.maxIdleTime"));
 //        dataSource.setNumHelperThreads(Play.application().configuration().getInt("db.default.numHelperThreads"));
         
         
