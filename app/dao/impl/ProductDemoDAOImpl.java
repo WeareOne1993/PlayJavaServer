@@ -137,6 +137,7 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
             return 244;
         
         reCountListAfterAddOrUpdate(name);
+        printCountList();
         
         return 200;
     }
@@ -290,6 +291,7 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
         
         reCountListAfterRemove(oldName);
         reCountListAfterAddOrUpdate(name);
+        printCountList();
         
         return 200;
     }
@@ -322,6 +324,7 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
             }
             
             reCountListAfterRemove(name);
+            printCountList();
             
             return 200;           
         }
@@ -330,11 +333,6 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
     public List<ProductDemo> returnProductsForOnePage(int pageNumber, int pageSize)
     {
         int maxPageSize;
-        
-        if (TransactionSynchronizationManager.isActualTransactionActive() == true)
-        {
-            Logger.debug("return ProductForOnePage: there have a Transaction");
-        }        
         
         List<ProductDemo> products;
         
@@ -462,7 +460,7 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
         int maxPageSize;
         List<ProductDemo> products;
         boolean isFound = false;
-        printCountList();
+        
         
         if (countListForSearchName.size() == 0)
         {
@@ -500,6 +498,7 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
         {
             products = new ArrayList<ProductDemo>();
             products.add(new ProductDemo(0, 0));
+            printCountList();
             
             return products;
         }
@@ -514,6 +513,7 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
             {
                 products = new ArrayList<ProductDemo>();
                 products.add(new ProductDemo(maxPageSize, countSize));
+                printCountList();
                 
                 return products;
             }
@@ -526,6 +526,7 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
                 
                 products = entityManager.createQuery(criteriaQueryProductDemo).setFirstResult((pageNumber-1)*pageSize).setMaxResults(pageSize).getResultList();
                 products.add(new ProductDemo(maxPageSize, countSize));
+                printCountList();
                 
                 return products;  
             }
@@ -567,10 +568,6 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
     
     public void getMaxWatchSize()
     {
-        if (TransactionSynchronizationManager.isActualTransactionActive() == true)
-        {
-            Logger.debug("get max WATCH size : there have a Transaction");
-        }
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
         Root<ProductDemo> rootProductDemo = criteriaQuery.from(ProductDemo.class);

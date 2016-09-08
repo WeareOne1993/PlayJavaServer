@@ -68,10 +68,15 @@ public class DataConfig {
         dataSource.setUser(Play.application().configuration().getString("db.default.username"));
         dataSource.setPassword(Play.application().configuration().getString("db.default.password"));
         
+        dataSource.setInitialPoolSize(Play.application().configuration().getInt("db.default.initialPoolSize"));
         dataSource.setMinPoolSize(Play.application().configuration().getInt("db.default.minPoolSize"));
         dataSource.setMaxPoolSize(Play.application().configuration().getInt("db.default.maxPoolSize"));
         dataSource.setMaxIdleTime(Play.application().configuration().getInt("db.default.maxIdleTime"));
-//        dataSource.setNumHelperThreads(Play.application().configuration().getInt("db.default.numHelperThreads"));
+        dataSource.setNumHelperThreads(Play.application().configuration().getInt("db.default.numHelperThreads"));
+        dataSource.setAcquireIncrement(Play.application().configuration().getInt("db.default.acquireIncrement"));
+        dataSource.setMaxStatementsPerConnection(Play.application().configuration().getInt("db.default.maxStatementsPerConnection"));
+        
+
         
         
         return dataSource;
