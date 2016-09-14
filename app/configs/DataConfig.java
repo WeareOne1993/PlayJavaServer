@@ -67,6 +67,7 @@ public class DataConfig {
         dataSource.setJdbcUrl(Play.application().configuration().getString("db.default.url"));
         dataSource.setUser(Play.application().configuration().getString("db.default.username"));
         dataSource.setPassword(Play.application().configuration().getString("db.default.password"));
+        Logger.debug("user name = " + Play.application().configuration().getString("db.default.username") + "\tpassword = "  + Play.application().configuration().getString("db.default.password"));
         
         dataSource.setInitialPoolSize(Play.application().configuration().getInt("db.default.initialPoolSize"));
         dataSource.setMinPoolSize(Play.application().configuration().getInt("db.default.minPoolSize"));

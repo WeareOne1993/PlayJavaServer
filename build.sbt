@@ -16,7 +16,8 @@ libraryDependencies ++= Seq(
 	"org.springframework" % "spring-test" % "4.3.1.RELEASE" % "test",
 	"org.hibernate" % "hibernate-entitymanager" % "4.3.6.Final",
 	"javax.inject" % "javax.inject" % "1",
-	"c3p0" % "c3p0" % "0.9.1.2"
+	"c3p0" % "c3p0" % "0.9.1.2",
+	"net.sourceforge.jtds" % "jtds" % "1.3.1"
 )
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava)

@@ -132,5 +132,12 @@
 	<classpathentry kind="lib" path="C:/Users/intern/Desktop/Working/typesafe-activator-1.3.10/activator-dist-1.3.10/lib/com.typesafe.activator.activator-dist-1.3.10.jar"/>
 	<classpathentry kind="lib" path="C:/Users/intern/Desktop/Working/typesafe-activator-1.3.10/activator-dist-1.3.10/lib/org.scala-lang.scala-library-2.11.8.jar"/>
 	<classpathentry kind="lib" path="C:/Users/intern/.ivy2/cache/c3p0/c3p0/jars/c3p0-0.9.1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/intern/.ivy2/cache/com.typesafe.play/play-java-jdbc_2.11/jars/play-java-jdbc_2.11-2.4.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/intern/.ivy2/cache/com.typesafe.play/play-java-jdbc_2.11/jars/play-java-jdbc_2.11-2.4.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/intern/.ivy2/cache/com.typesafe.play/play-java-jdbc_2.11/jars/play-java-jdbc_2.11-2.5.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/intern/.ivy2/cache/com.typesafe.play/play-java-jdbc_2.11/jars/play-java-jdbc_2.11-2.5.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/intern/.ivy2/cache/com.typesafe.play/play-java-jdbc_2.11/jars/play-java-jdbc_2.11-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/intern/.ivy2/cache/com.typesafe.play/play-datacommons_2.10/sqljdbc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/intern/.ivy2/cache/com.typesafe.play/play-datacommons_2.10/sqljdbc4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

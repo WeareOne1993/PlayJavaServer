@@ -609,10 +609,10 @@ public class ProductDemoDAOImpl implements ProductDemoDAO
     {
         Logger.debug("count List Size = " + countListForSearchName.size());
         
-        for (int i = 0; i < countListForSearchName.size(); i++)
-        {
-            Logger.debug("name = " + countListForSearchName.get(i).getName() + "\tsize = " + countListForSearchName.get(i).getNumber());
-        }
+    //    for (int i = 0; i < countListForSearchName.size(); i++)
+    //    {
+    //        Logger.debug("name = " + countListForSearchName.get(i).getName() + "\tsize = " + countListForSearchName.get(i).getNumber());
+    //    }
         
         System.out.println("\n");
     }
